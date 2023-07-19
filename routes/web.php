@@ -19,6 +19,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+    dump(\App\Models\Store::where('tenant_id', session()->get('tenant'))->first());
+
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
