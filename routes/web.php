@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    dump(\App\Models\Store::where('tenant_id', session()->get('tenant'))->first());
+    dump(\App\Models\Store::first());
 
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -30,4 +30,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
