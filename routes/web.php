@@ -20,7 +20,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    dump(\App\Models\Store::first());
+    //dump(\App\Models\Store::first());
 
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::prefix('admin')->name('admin')->group(function () {
+Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('products', ProductController::class);
 });
 

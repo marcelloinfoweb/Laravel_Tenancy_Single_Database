@@ -8,8 +8,8 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-end mb-8">
-{{--                <a href="{{route('admin.products.create')}}"--}}
-{{--                   class="px-6 py-2 bg-green-600 shadow text-white font-bold rounded">Criar Produto</a>--}}
+                <a href="{{route('admin.products.create')}}"
+                   class="px-6 py-2 bg-green-600 shadow text-white font-bold rounded">Criar Produto</a>
             </div>
             <div class="flex flex-col">
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
