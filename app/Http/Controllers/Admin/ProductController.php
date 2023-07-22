@@ -46,7 +46,7 @@ class ProductController extends Controller
         $data = $request->all();
 
         $product = $store->first()->products()->create($data);
-        $product->categories()->sync($request->categories);
+        //$product->categories()->sync($request->categories);
 
         session()->flash('message', ['type' => 'success', 'body' => 'Sucesso ao cadastrar produto']);
 

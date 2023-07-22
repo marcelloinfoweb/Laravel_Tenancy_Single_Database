@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Tenant;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Tenant>
+ * @extends Factory<Tenant>
  */
 class TenantFactory extends Factory
 {
@@ -17,7 +18,9 @@ class TenantFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            //tenant factory
+            'contract' => $this->faker->uuid,
+            'is_active' => 1,
         ];
     }
 }

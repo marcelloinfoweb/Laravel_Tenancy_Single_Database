@@ -56,11 +56,11 @@
                                             {{$product->created_at->format('d/m/Y H:i:s')}}
                                         </td>
                                         <td class="w-48 px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500 flex justify-between">
-                                            <a href="{{route('products.edit', $product)}}" class="text-blue-500 hover:text-blue-200 font-bold hover:underline
+                                            <a href="{{route('admin.products.edit', $product)}}" class="text-blue-500 hover:text-blue-200 font-bold hover:underline
                                                 transition-all ease-in-out duration-200">EDITAR</a>
 
 
-                                            <form action="{{route('products.destroy', $product)}}" class="destroyButton"
+                                            <form action="{{route('admin.products.destroy', $product)}}" class="destroyButton"
                                                   method="POST">
                                                 @csrf
                                                 @method("DELETE")
