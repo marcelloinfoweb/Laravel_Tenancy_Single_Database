@@ -46,7 +46,7 @@ class ProductController extends Controller
         $data = $request->all();
 
         $product = $store->first()->products()->create($data);
-        //$product->categories()->sync($request->categories);
+        $product->categories()->sync($request->categories);
 
         session()->flash('message', ['type' => 'success', 'body' => 'Sucesso ao cadastrar produto']);
 
@@ -69,7 +69,7 @@ class ProductController extends Controller
         $categories = $category->all('id', 'name');
         $product = $this->product->findOrFail($id);
 
-        return view('admin.products.create', compact('product', 'categories'));
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     /**

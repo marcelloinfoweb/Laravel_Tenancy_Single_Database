@@ -19,6 +19,18 @@ class Product extends Model
         $this->attributes['slug'] = Str::slug($prop);
     }
 
+    public function setPriceAttribute($prop): void
+    {
+        $price = str_replace(['.', ','], ['', '.'], $prop);
+
+        $this->attributes['price'] = $price * 100;
+    }
+
+    public function getPriceAttribute(): float|int
+    {
+        return $this->attributes['price'] / 100;
+    }
+
     public function categories(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Category::class);
