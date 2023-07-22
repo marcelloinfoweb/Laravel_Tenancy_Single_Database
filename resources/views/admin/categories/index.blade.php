@@ -1,15 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold dark:text-slate-400 text-xl text-gray-800 leading-tight">
-            {{ __('Produtos') }}
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Categorias') }}
         </h2>
     </x-slot>
 
-    <div class="py-12 dark:text-slate-400">
+    <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-end mb-8">
-                <a href="{{route('admin.products.create')}}"
-                   class="px-6 py-2 bg-green-600 shadow text-white font-bold rounded">Criar Produto</a>
+                <a href="{{route('admin.categories.create')}}"
+                   class="px-6 py-2 bg-green-600 shadow text-white font-bold rounded">Criar Categoria</a>
             </div>
             <div class="flex flex-col">
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -28,10 +28,6 @@
                                     </th>
                                     <th scope="col"
                                         class="px-6 py-4 text-center text-xs font-semi text-gray-500 uppercase tracking-wider">
-                                        Preço
-                                    </th>
-                                    <th scope="col"
-                                        class="px-6 py-4 text-center text-xs font-semi text-gray-500 uppercase tracking-wider">
                                         Criado Em
                                     </th>
                                     <th scope="col"
@@ -41,7 +37,7 @@
                                 </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
-                                @forelse($products as $product)
+                                @forelse($categories as $product)
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500">
                                             {{$product->id}}
@@ -50,18 +46,15 @@
                                             {{$product->name}}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500">
-                                            R$ {{number_format($product->price, 2, ',', '.')}}
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500">
                                             {{$product->created_at->format('d/m/Y H:i:s')}}
                                         </td>
                                         <td class="w-48 px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500 flex justify-between">
-                                            <a href="{{route('products.edit', $product)}}" class="text-blue-500 hover:text-blue-200 font-bold hover:underline
+                                            <a href="{{route('admin.categories.edit', $product)}}" class="text-blue-500 hover:text-blue-200 font-bold hover:underline
                                                 transition-all ease-in-out duration-200">EDITAR</a>
 
 
-                                            <form action="{{route('products.destroy', $product)}}" class="destroyButton"
-                                                  method="POST">
+                                            <form action="{{route('admin.categories.destroy', $product)}}"
+                                                  class="destroyButton" method="POST">
                                                 @csrf
                                                 @method("DELETE")
                                                 <button
@@ -82,7 +75,7 @@
                             </table>
                         </div>
                         <div class="mt-8">
-                            {{$products->links()}}
+                            {{$categories->links()}}
                         </div>
                     </div>
                 </div>
