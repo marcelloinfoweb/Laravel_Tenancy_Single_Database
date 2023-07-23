@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Front\CartController;
+use App\Http\Controllers\Front\CheckoutController;
 use App\Http\Controllers\Front\StoreController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,12 @@ Route::domain('{subdomain}.localhost')->group(function () {
         Route::get('add/{product}', [CartController::class, 'add'])->name('add');
         Route::get('remove/{product}', [CartController::class, 'remove'])->name('remove');
         Route::get('cancel', [CartController::class, 'cancel'])->name('cancel');
+    });
+
+    Route::prefix('checkout')->middleware('auth.stores')->name('checkout.')->group(function () {
+        Route::get('/', [CheckoutController::class, 'checkout'])->name('checkout');
+        Route::post('/process', [CheckoutController::class, 'process'])->name('process');
+        Route::get('/thanks', [CheckoutController::class, 'thanks'])->name('thanks');
     });
 });
 
