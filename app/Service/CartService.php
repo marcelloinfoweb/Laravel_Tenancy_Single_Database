@@ -28,7 +28,7 @@ class CartService
                 throw new \Exception('Product Already Exists in Car!');
             }
 
-            $this->session->put(self::CART_KEY, $item);
+            $this->session->push(self::CART_KEY, $item);
 
         } else {
             $this->session->put(self::CART_KEY, [$item]);

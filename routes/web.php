@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\StoreController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -18,8 +19,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::domain('{subdomain}.localhost')->group(function () {
-    Route::get('/', [StoreController::class, 'index'])
-        ->name('index');
+    Route::get('/', [StoreController::class, 'index'])->name('front.store');
+
+    Route::prefix('cart')->name('cart.')->group(function () {
+        Route::get('/', [CartController::class, 'index'])->name('index');
+        Route::get('add/{product}', [CartController::class, 'add'])->name('add');
+        Route::get('remove/{product}', [CartController::class, 'remove'])->name('remove');
+        Route::get('cancel', [CartController::class, 'cancel'])->name('cancel');
+    });
 });
 
 Route::get('/', function () {
@@ -27,8 +34,6 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    //dump(\App\Models\Store::first());
-
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
