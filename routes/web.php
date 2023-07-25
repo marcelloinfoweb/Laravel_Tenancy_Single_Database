@@ -34,6 +34,13 @@ Route::domain('{subdomain}.localhost')->group(function () {
         Route::post('/process', [CheckoutController::class, 'process'])->name('process');
         Route::get('/thanks', [CheckoutController::class, 'thanks'])->name('thanks');
     });
+
+    Route::name('sign.')->group(function () {
+        Route::get('/sign-in', [\App\Http\Controllers\Front\AuthenticateController::class, 'index'])->name('index');
+        Route::post('/sign-in', [\App\Http\Controllers\Front\AuthenticateController::class, 'signIn'])->name('in');
+        Route::post('/sign-up', [\App\Http\Controllers\Front\AuthenticateController::class, 'signUp'])->name('up');
+    });
+    Route::get('logout', [\App\Http\Controllers\Front\AuthenticateController::class, 'logout'])->name('up');
 });
 
 Route::get('/', function () {
