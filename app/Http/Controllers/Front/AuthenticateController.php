@@ -25,7 +25,9 @@ class AuthenticateController extends Controller
             'login.password' => ['required', Rules\Password::defaults()],
         ]);
 
-        $data['login']['tenant_id'] = $store->whereSubdomain($subdomain)->first()->tenant_id;
+        $store = $store->whereSubdomain($subdomain)->first(['id', 'tenant_id']);
+        $data['login']['store_id'] = $store->id;
+        $data['login']['tenant_id'] = $store->tenant_id;
 
         $authenticateService->login($data['login'], new User);
 
@@ -41,8 +43,8 @@ class AuthenticateController extends Controller
         ]);
 
         $store = $store->whereSubdomain($subdomain)->first(['id', 'tenant_id']);
-        $data['register']['store_id'] = $store->tenant_id;
-        $data['register']['tenant_id'] = $store->id;
+        $data['register']['store_id'] = $store->id;
+        $data['register']['tenant_id'] = $store->tenant_id;
 
         $registerService->register($data['register'], new User);
 

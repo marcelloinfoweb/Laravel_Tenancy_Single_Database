@@ -6,7 +6,7 @@
         <hr>
 
         <div class="w-1/2 block mx-auto mt-10">
-            <form action="{{route('checkout.proccess', request('subdomain'))}}" method="post">
+            <form action="{{route('checkout.process', request('subdomain'))}}" method="post">
                 @csrf
                 <div class="w-full mb-8">
                     <label class="block">Número Cartão</label>
