@@ -19,4 +19,9 @@ class Store extends Model
     {
         return $this->hasMany(Category::class);
     }
+
+    public function shippings(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ShippingOption::class);
+    }
 }
