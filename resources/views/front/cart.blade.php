@@ -2,15 +2,14 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <h3 class="text-2xl font-extrabold my-8"></h3>
         <hr>
-        <h5 class="my-20 text-4xl text-center font-extrabold">Carrinho</h5>
+        <h5 class="my-10 text-4xl text-center font-extrabold">Carrinho</h5>
         <hr>
 
-        <div class="block mx-auto mt-10">
+        <div class="w-1/2 block mx-auto mt-5">
             @php $total = 0; @endphp
             @forelse($cart as $item)
-
-                <div class="mb-4 flex justify-between">
-                    <h5 class="text-bold text-2xl mb-4">{{$item['name']}}</h5>
+                <div class="mb-2 flex justify-between">
+                    <h5 class="text-bold text-2xl mb-2">{{$item['name']}}</h5>
                     <div class="flex">
                         <p class="mr-2">R$ {{number_format($item['price'], 2, ',', '.')}}</p>
                         <p><a class="font-bold text-red-700"
@@ -25,9 +24,26 @@
                 </div>
             @endforelse
 
+            @if($shippings)
+                <div class="block border-t  border-gray-200 my-1 py-1">
+                    <h3 class="text-xl font-bold mb-5">Escolha o frete</h3>
+                    <ul>
+                        @foreach($shippings as $shipping)
+                            <li class="block">
+                                <input type="radio" name="shipping_value" value="{{$shipping->price}}">
+                                {{$shipping->name}} - R$ {{number_format($shipping->price, 2, ',', '.')}}
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             @if($cart)
                 <div class="border-t border-gray-200 flex justify-between pt-10">
-                    <h5 class="text-bold text-2xl mb-4">Total</h5>
+                    <h5 class="text-bold text-2xl mb-4">
+                        Total {{session()->has('shipping_value') ? ' + frete' : ''}}</h5>
+                    @php $total = session()->has('shipping_value') ? $total + session('shipping_value') : $total; @endphp
+
                     <p>R$ {{number_format($total, 2, ',', '.')}}</p>
                 </div>
 
@@ -41,4 +57,29 @@
             @endif
         </div>
     </div>
+
+    @push('scripts')
+        <script>
+            debugger
+            const urlSaveShipping = '{{route("cart.store-shipping", request("subdomain"))}}'
+            let inputs = document.querySelectorAll('input[name="shipping_value"]');
+            for (let inputEl of inputs) {
+                inputEl.addEventListener('change', e => {
+                    let shipping_value = document.querySelector('input[name="shipping_value"]:checked').value
+                    fetch(urlSaveShipping, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            "_token": "{{csrf_token()}}",
+                            shipping_value
+                        })
+                    })
+                        .then(res => location.reload())
+                })
+            }
+        </script>
+    @endpush
+
 </x-guest-layout>

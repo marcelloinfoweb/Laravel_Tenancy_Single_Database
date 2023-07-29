@@ -28,6 +28,7 @@ Route::domain('{subdomain}.localhost')->group(function () {
         Route::get('add/{product}', [CartController::class, 'add'])->name('add');
         Route::get('remove/{product}', [CartController::class, 'remove'])->name('remove');
         Route::get('cancel', [CartController::class, 'cancel'])->name('cancel');
+        Route::post('shipping', [CartController::class, 'shipping'])->name('store-shipping');
     });
 
     Route::prefix('checkout')->middleware('auth.stores')->name('checkout.')->group(function () {
