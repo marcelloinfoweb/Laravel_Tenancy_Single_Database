@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -49,5 +50,21 @@ class User extends Authenticatable
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class)->orderBy('id', 'DESC');
+    }
+
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function hasRole(string $role): bool
+    {
+        $role = Role::whereRole($role)->first();
+
+        if (! $role) {
+            return false;
+        }
+
+        return $this->role_id === $role->id;
     }
 }
