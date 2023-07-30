@@ -24,4 +24,9 @@ class Store extends Model
     {
         return $this->hasMany(ShippingOption::class);
     }
+
+    public function customers(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(User::class);
+    }
 }

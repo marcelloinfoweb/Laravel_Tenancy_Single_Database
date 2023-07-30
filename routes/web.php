@@ -3,8 +3,10 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ShippingOptionsController;
+use App\Http\Controllers\Front\AuthenticateController;
 use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\CheckoutController;
+use App\Http\Controllers\Front\MyOrdersController;
 use App\Http\Controllers\Front\StoreController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -38,11 +40,16 @@ Route::domain('{subdomain}.localhost')->group(function () {
     });
 
     Route::name('sign.')->group(function () {
-        Route::get('/sign-in', [\App\Http\Controllers\Front\AuthenticateController::class, 'index'])->name('index');
-        Route::post('/sign-in', [\App\Http\Controllers\Front\AuthenticateController::class, 'signIn'])->name('in');
-        Route::post('/sign-up', [\App\Http\Controllers\Front\AuthenticateController::class, 'signUp'])->name('up');
+        Route::get('/sign-in', [AuthenticateController::class, 'index'])->name('index');
+        Route::post('/sign-in', [AuthenticateController::class, 'signIn'])->name('in');
+        Route::post('/sign-up', [AuthenticateController::class, 'signUp'])->name('up');
     });
-    Route::get('logout', [\App\Http\Controllers\Front\AuthenticateController::class, 'logout'])->name('up');
+
+    Route::get('/my-orders', [MyOrdersController::class, 'index'])
+        ->name('my.orders')
+        ->middleware('auth');
+
+    Route::get('logout', [AuthenticateController::class, 'logout'])->name('up');
 });
 
 Route::get('/', function () {
