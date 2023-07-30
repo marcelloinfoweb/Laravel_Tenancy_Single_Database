@@ -24,13 +24,17 @@
                 </div>
             @endforelse
 
-            @if($shippings)
+            @if($shippings && $cart)
                 <div class="block border-t  border-gray-200 my-1 py-1">
                     <h3 class="text-xl font-bold mb-5">Escolha o frete</h3>
                     <ul>
                         @foreach($shippings as $shipping)
                             <li class="block">
-                                <input type="radio" name="shipping_value" value="{{$shipping->price}}">
+                                <input type="radio" name="shipping_value"
+                                       @if(session('shipping_value') == $shipping->price)
+                                           checked
+                                       @endif
+                                       value="{{$shipping->price}}">
                                 {{$shipping->name}} - R$ {{number_format($shipping->price, 2, ',', '.')}}
                             </li>
                         @endforeach
