@@ -11,7 +11,7 @@ class Order extends Model
     use HasFactory, BelongsTenantScope;
 
     protected $fillable = [
-        'store_id', 'user_id', 'items', 'shipping_value', 'payment_status',
+        'store_id', 'user_id', 'items', 'shipping_value', 'payment_status', 'code',
     ];
 
     public function setShippingValueAttribute($prop): void
