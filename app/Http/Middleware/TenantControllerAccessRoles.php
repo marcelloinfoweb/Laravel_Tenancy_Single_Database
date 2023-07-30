@@ -13,10 +13,10 @@ class TenantControllerAccessRoles
      *
      * @param  Closure(Request): (Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, string $role): Response
     {
-        if (\Gate::allows('has.role', 'ROLE_TENANT_CUSTOMER')) {
-            abort(403, 'Não Permitido');
+        if (\Gate::allows('has.role', $role)) {
+            abort(403, 'Você não tem acesso a essa página');
         }
         // Tenant: Acessa o painel de gerenciamento para o gerenciamento de seus clientes
         // Tenant Customer: Não pode acessar o painel do gerenciamento

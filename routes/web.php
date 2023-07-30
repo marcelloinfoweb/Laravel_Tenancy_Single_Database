@@ -56,7 +56,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware('acl')->group(function () {
+Route::middleware('acl:ROLE_TENANT_CUSTOMER')->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->middleware(['auth', 'verified'])->name('dashboard');
@@ -71,6 +71,8 @@ Route::middleware('acl')->group(function () {
         Route::resource('products', ProductController::class);
         Route::resource('categories', CategoryController::class);
         Route::resource('shippings', ShippingOptionsController::class);
+
+        Route::get('/meus-inquilinos', fn () => 'Meus Inquilinos')->middleware('acl:ROLE_TENANT');
     });
 });
 
